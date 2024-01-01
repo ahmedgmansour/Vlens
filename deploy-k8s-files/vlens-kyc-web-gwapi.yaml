@@ -1,0 +1,80 @@
+﻿apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: api-volume
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/dataapi"
+---
+  apiVersion: v1
+  kind: Service
+  metadata:
+    name: vlens-kyc-web-gwapi
+    labels:
+      app: vlens-kyc-web-gwapi
+  spec:
+    type: NodePort
+    selector:
+      app: vlens-kyc-web-gwapi
+    ports:
+    - name: http
+      port: 8082
+      protocol: TCP
+      targetPort: 80
+---
+  apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    name: vlens-kyc-web-gwapi-pv-claim
+    labels:
+      app: vlens-kyc-web-gwapi
+  spec:
+    storageClassName: manual
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: 5G
+---
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: vlens-kyc-web-gwapi
+    labels:
+      app: vlens-kyc-web-gwapi
+  spec:
+    selector:
+      matchLabels:
+        app: vlens-kyc-web-gwapi
+        tier: backend
+    template:
+      metadata:
+        labels:
+          app: vlens-kyc-web-gwapi
+          tier: backend
+      spec:
+        containers:
+        - name: vlens-kyc-web-gwapi
+          image: vlensclient.azurecr.io/vlens.kyc.web.gwapi:1.3.0
+          imagePullPolicy: IfNotPresent
+          ports:
+          - containerPort: 80
+          envFrom:
+          - secretRef:
+              name: vlens-app-secrets
+          volumeMounts:
+          - name: vlens-kyc-web-gwapi-persistent-storage
+            mountPath: /app/App_Data
+        imagePullSecrets:
+        - name: registery-azurecr-secret
+        volumes:
+        - name: vlens-kyc-web-gwapi-persistent-storage
+          persistentVolumeClaim:
+            claimName: vlens-kyc-web-gwapi-pv-claim

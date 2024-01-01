@@ -7,3 +7,8 @@ metadata:
 data:
   database_url: {{ .Values.configmap.database_url }}
 {{- end }}
+
+
+
+
+
