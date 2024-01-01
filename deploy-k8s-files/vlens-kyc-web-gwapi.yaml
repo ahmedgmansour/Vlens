@@ -62,7 +62,7 @@ spec:
       spec:
         containers:
         - name: vlens-kyc-web-gwapi
-          image: vlensclient.azurecr.io/vlens.kyc.web.gwapi:1.3.0
+          image: vlensclient.azurecr.io/vlens.kyc.web.gwapi:1.4.0
           imagePullPolicy: IfNotPresent
           ports:
           - containerPort: 80
