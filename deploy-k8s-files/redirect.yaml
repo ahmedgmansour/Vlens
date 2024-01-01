@@ -1,0 +1,9 @@
+  GNU nano 4.8                                                          redirect.yaml                                                                     
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: redirectscheme
+spec:
+  redirectScheme:
+    scheme: https
+    permanent: true
