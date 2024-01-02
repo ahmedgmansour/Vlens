@@ -59,8 +59,17 @@ spec:
       metadata:
         labels:
           app: vlens-kyc-db
-          tier: mssql
+          tier: mssql          
       spec:
+        affinity:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: worker1
+                  operator: In
+                  values:
+                  - kubernetes1     
         containers:
         - name: vlens-kyc-db
           image: vlensclient.azurecr.io/vlens:sql2019
