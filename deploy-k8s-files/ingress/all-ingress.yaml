@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: all-ingress
+  name: traefik-ingress
   annotations:
 #    kubernetes.io/ingress.class: traefik
     traefik.ingress.kubernetes.io/router.tls: "true"
@@ -16,17 +16,17 @@ metadata:
 spec:
   tls:
     - hosts:
-      - *.k8s.vlens.org
+      - traefik.k8s.vlens.org
       secretName: my-secret
   ingressClassName: traefik
   rules:
-    - host: *.k8s.vlens.org
+    - host: traefik.k8s.vlens.org
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: vlens-kyc-web-portal
+                name: traefik
                 port:
-                  number: 8080
+                  number: 9000
