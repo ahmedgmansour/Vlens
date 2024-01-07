@@ -16,11 +16,11 @@ metadata:
 spec:
   tls:
     - hosts:
-      - portal.k8s.vlens.org
+      - "*.k8s.vlens.org"
       secretName: my-secret
   ingressClassName: traefik
   rules:
-    - host: *.k8s.vlens.org
+    - host: "*.k8s.vlens.org"
       http:
         paths:
           - path: /
