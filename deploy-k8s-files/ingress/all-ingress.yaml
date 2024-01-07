@@ -12,6 +12,7 @@ metadata:
     traefik.ingress.kubernetes.io/ssl-redirect: "true"
     traefik.ingress.kubernetes.io/router.middlewares: default-redirectscheme@kubernetescrd
     traefik.ingress.kubernetes.io/router.middlewares: default-http-methods@kubernetescrd
+    traefik.ingress.kubernetes.io/router.priority: "1"
     #traefik.ingress.kubernetes.io/custom-response-headers: "Access-Control-Allow-Origin:*||Access-Control-Allow-Methods:GET,POST,OPTIONS||Access-Control>
 spec:
   tls:
