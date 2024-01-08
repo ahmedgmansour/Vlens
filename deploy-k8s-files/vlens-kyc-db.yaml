@@ -20,7 +20,7 @@ spec:
     labels:
       app: vlens-kyc-db
   spec:
-    type: NodePort
+    # type: NodePort
     selector:
       app: vlens-kyc-db
       tier: mssql

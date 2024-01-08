@@ -5,7 +5,7 @@ metadata:
   labels:
     app: vlens-kyc-web-portal
 spec:
-  type: NodePort
+  # type: NodePort
   selector:
     app: vlens-kyc-web-portal
     tier: frontend

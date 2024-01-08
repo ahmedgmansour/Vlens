@@ -20,7 +20,7 @@ spec:
     labels:
       app: vlens-kyc-web-gwapi
   spec:
-    type: NodePort
+    # type: NodePort
     selector:
       app: vlens-kyc-web-gwapi
     ports:
